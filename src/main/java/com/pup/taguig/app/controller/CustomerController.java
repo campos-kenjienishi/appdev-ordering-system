@@ -12,7 +12,7 @@ import com.pup.taguig.app.dto.CustomerRequestDTO;
 import com.pup.taguig.app.service.CustomerService;
 
 @RestController
-@RequestMapping("customer")
+@RequestMapping("api/customers")
 public class CustomerController {
 
 	@Autowired
