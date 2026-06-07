@@ -1,9 +1,10 @@
 package com.pup.taguig.app.service;
 
 import com.pup.taguig.app.dto.CustomerRequestDTO;
+import com.pup.taguig.app.dto.CustomerResponseDTO;
 
 public interface CustomerService {
 
-	public Long registerCustomer(CustomerRequestDTO request);
+	public CustomerResponseDTO registerCustomer(CustomerRequestDTO request);
 	
 }

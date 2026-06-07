@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pup.taguig.app.dto.CustomerRequestDTO;
+import com.pup.taguig.app.dto.CustomerResponseDTO;
 import com.pup.taguig.app.service.CustomerService;
 
 @RestController
@@ -19,7 +20,7 @@ public class CustomerController {
 	private CustomerService customerService;
 	
 	@PostMapping("")
-	public Long registerCustomer(@RequestBody CustomerRequestDTO customer) {
+	public CustomerResponseDTO registerCustomer(@RequestBody CustomerRequestDTO customer) {
 		if (Objects.nonNull(customer)) {
 			return customerService.registerCustomer(customer);
 		}
