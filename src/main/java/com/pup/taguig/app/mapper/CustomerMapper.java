@@ -8,5 +8,6 @@ import com.pup.taguig.app.model.Customer;
 public interface CustomerMapper {
 	
 	public Long registerCustomer(Customer request);
+	public Customer getCustomerById(Long id);
 	
 }

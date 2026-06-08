@@ -1,9 +1,12 @@
 package com.pup.taguig.app.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.pup.taguig.app.dto.CustomerRequestDTO;
+import com.pup.taguig.app.dto.CustomerResponseDTO;
 import com.pup.taguig.app.mapper.CustomerMapper;
 import com.pup.taguig.app.model.Customer;
 import com.pup.taguig.app.service.CustomerService;
@@ -15,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService{
 	private CustomerMapper customerMapper;
 
 	@Override
-	public Long registerCustomer(CustomerRequestDTO request) {
+	public CustomerResponseDTO registerCustomer(CustomerRequestDTO request) {
 		
 		Customer customer = new Customer();
 		customer.setName(request.getName());
@@ -23,10 +26,35 @@ public class CustomerServiceImpl implements CustomerService{
 		customer.setPhone(request.getPhone());
 		
 		customerMapper.registerCustomer(customer);
-		Long id = customer.getId();
 		
-		return id;
+		CustomerResponseDTO response = new CustomerResponseDTO();
+		response.setId(customer.getId());
+		response.setName(customer.getName());
+		response.setEmail(customer.getEmail());
+		response.setPhone(customer.getPhone());
 		
+		return response;
+		
+	}
+
+	@Override
+	public CustomerResponseDTO getCustomerById(Long id) {
+		Customer customer = customerMapper.getCustomerById(id);
+		
+		if (customer == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with id " + id + " not found");
+		}
+		
+		return this.toDto(customer);
+	}
+
+	private CustomerResponseDTO toDto(Customer customer) {
+		return new CustomerResponseDTO(
+				customer.getId(),
+				customer.getName(),
+				customer.getEmail(),
+				customer.getPhone()
+		);
 	}
 
 }

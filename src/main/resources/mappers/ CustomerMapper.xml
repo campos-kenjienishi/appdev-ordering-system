@@ -10,6 +10,13 @@
 		<result column= "phone" property="phone" />
 	</resultMap>
 	
+	<resultMap id="getCustomerById" type="com.pup.taguig.app.model.Customer">
+		<id column="id" property="id"/>
+		<result column= "name" property="name" />
+		<result column= "email" property="email" />
+		<result column= "phone" property="phone" />
+	</resultMap>
+	
 	<insert id="registerCustomer" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO customers
 			(name, email, phone)
@@ -18,5 +25,13 @@
 			 #{email},
 			 #{phone})
 	</insert>
+	
+	<select id="getCustomerById" resultMap="getCustomerById">
+		SELECT 
+		*FROM
+			customers 
+		WHERE
+			id = #{id}
+	</select>
 
 </mapper>
