@@ -1,5 +1,12 @@
 package com.pup.taguig.app.mapper;
 
-public interface CustomerMapper {
+import org.apache.ibatis.annotations.Mapper;
 
+import com.pup.taguig.app.model.Customer;
+
+@Mapper
+public interface CustomerMapper {
+	
+	public Long registerCustomer(Customer request);
+	
 }
