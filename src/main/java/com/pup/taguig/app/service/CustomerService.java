@@ -6,5 +6,6 @@ import com.pup.taguig.app.dto.CustomerResponseDTO;
 public interface CustomerService {
 
 	public CustomerResponseDTO registerCustomer(CustomerRequestDTO request);
+	public CustomerResponseDTO getCustomerById(Long id);
 	
 }
