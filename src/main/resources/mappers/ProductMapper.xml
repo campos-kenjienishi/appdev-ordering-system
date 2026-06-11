@@ -2,5 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.ProductMapper">
+<mapper namespace="com.pup.taguig.app.mapper.ProductMapper">
+
+	<resultMap id="insertProduct" type="com.pup.taguig.app.model.Product">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="description" property="description"/>
+		<result column="price" property="price"/>
+		<result column="stock" property="stock"/>
+	</resultMap>
+	
+	<resultMap id="getAllProducts" type="com.pup.taguig.app.model.Product">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="description" property="description"/>
+		<result column="price" property="price"/>
+		<result column="stock" property="stock"/>
+	</resultMap>
+	
+	<resultMap id="getProductById" type="com.pup.taguig.app.model.Product">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="description" property="description"/>
+		<result column="price" property="price"/>
+		<result column="stock" property="stock"/>
+	</resultMap>
+	
+	<insert id="insertProduct" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO products
+			(name, description, price, stock)
+		VALUES 
+			(#{name},
+			 #{description},
+			 #{price},
+			 #{stock})
+	</insert>
+	
+	<select id="getAllProducts" resultMap="getAllProducts">
+		SELECT 
+		* 
+		FROM products
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<select id="getProductById" resultMap="getProductById">
+		SELECT 
+		* 
+		FROM products 
+		WHERE id = #{id}
+	</select>
+
+
 </mapper>

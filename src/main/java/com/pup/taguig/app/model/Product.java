@@ -1,5 +1,6 @@
 package com.pup.taguig.app.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,10 +13,10 @@ import lombok.Setter;
 
 public class Product {
 	
+	private Long id;
 	private String name;
 	private String description;
-	private float price;
-	private int stock;
-
+	private Double price;
+	private Integer stock;
 
 }
