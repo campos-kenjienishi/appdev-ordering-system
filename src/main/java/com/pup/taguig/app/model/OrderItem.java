@@ -1,6 +1,5 @@
 package com.pup.taguig.app.model;
 
-import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +16,5 @@ public class OrderItem {
 	private Long orderId;
 	private Long productId;
 	private int quantity;
-	private BigDecimal price;
+	private Double price;
 }

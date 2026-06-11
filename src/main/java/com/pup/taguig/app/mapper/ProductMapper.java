@@ -13,4 +13,5 @@ public interface ProductMapper {
 	public Long insertProduct(Product product);
 	List<Product> getAllProducts(@Param("limit") int limit, @Param("offset") int offset);
 	public Product getProductById(Long id);
+	int updateProductStock(@Param("id") Long id, @Param("stock") Integer stock);
 }

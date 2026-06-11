@@ -52,5 +52,10 @@
 		WHERE id = #{id}
 	</select>
 
+	<update id="updateProductStock">
+	    UPDATE products
+	    SET stock = #{stock}
+	    WHERE id = #{id}
+	</update>
 
 </mapper>

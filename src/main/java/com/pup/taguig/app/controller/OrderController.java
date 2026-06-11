@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class OrderController {
 	}
 	
 	@GetMapping("/{id}")
-	public OrderResponseDTO getOrderById(Long id) {
+	public OrderResponseDTO getOrderById(@PathVariable Long id) {
 		if (Objects.nonNull(id)) {
 			return orderService.getOrderById(id);
 		}
@@ -38,7 +39,7 @@ public class OrderController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public boolean cancelOrder(Long id) {
+	public boolean cancelOrder(@PathVariable Long id) {
 		if (Objects.nonNull(id)) {
 			return orderService.cancelOrder(id);
 		}

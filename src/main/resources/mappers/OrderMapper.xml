@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pup.taguig.app.mapper.OrderMapper">
+
+    <resultMap id="orderResultMap" type="com.pup.taguig.app.model.Order">
+        <id column="order_id" property="id"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="status" property="status"/>
+        <result column="total_price" property="totalPrice"/>
+
+        <collection property="items" ofType="com.pup.taguig.app.model.OrderItem">
+            <id column="item_id" property="id"/>
+            <result column="order_id" property="orderId"/>
+            <result column="product_id" property="productId"/>
+            <result column="quantity" property="quantity"/>
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+
+    <insert id="createOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders
+            (customer_id, status, total_price)
+        VALUES
+            (#{customerId}, #{status}, #{totalPrice})
+    </insert>
+
+    <insert id="createOrderItem">
+        INSERT INTO order_items
+            (order_id, product_id, quantity, price)
+        VALUES
+            (#{orderId}, #{productId}, #{quantity}, #{price})
+    </insert>
+
+    <select id="getOrderById" resultMap="orderResultMap">
+        SELECT
+            o.id AS order_id,
+            o.customer_id,
+            o.status,
+            o.total_price,
+            oi.id AS item_id,
+            oi.order_id,
+            oi.product_id,
+            oi.quantity,
+            oi.price
+        FROM orders o
+        LEFT JOIN order_items oi
+            ON oi.order_id = o.id
+        WHERE o.id = #{id}
+    </select>
+
+    <select id="getCustomerOrders" resultMap="orderResultMap">
+        SELECT
+            o.id AS order_id,
+            o.customer_id,
+            o.status,
+            o.total_price,
+            oi.id AS item_id,
+            oi.order_id,
+            oi.product_id,
+            oi.quantity,
+            oi.price
+        FROM orders o
+        LEFT JOIN order_items oi
+            ON oi.order_id = o.id
+        WHERE o.customer_id = #{customerId}
+    </select>
+
+    <select id="getOrderItems" resultType="com.pup.taguig.app.model.OrderItem">
+        SELECT
+            id,
+            order_id AS orderId,
+            product_id AS productId,
+            quantity,
+            price
+        FROM order_items
+        WHERE order_id = #{orderId}
+    </select>
+
+    <update id="cancelOrder">
+        UPDATE orders
+        SET status = 'CANCELLED'
+        WHERE id = #{id}
+    </update>
+
 </mapper>

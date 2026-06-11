@@ -46,7 +46,7 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/{id}/orders")
-	public List<OrderResponseDTO> getCustomerOrders(Long id){
+	public List<OrderResponseDTO> getCustomerOrders(@PathVariable Long id){
 		if (Objects.nonNull(id)) {
 			return orderService.getCustomerOrders(id);
 		}
