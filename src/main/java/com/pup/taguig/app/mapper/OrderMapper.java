@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.pup.taguig.app.dto.TopProductResponseDTO;
 import com.pup.taguig.app.model.Order;
 import com.pup.taguig.app.model.OrderItem;
 
@@ -15,6 +16,10 @@ public interface OrderMapper {
 	public Order getOrderById(Long id);
 	public List<Order> getCustomerOrders(Long customerId);
 	public List<OrderItem> getOrderItems(Long orderId);
+	List<TopProductResponseDTO> getTopSellingProducts();
 	public int cancelOrder(Long id);
 	
+	Integer getTotalOrders();
+    Double getTotalRevenue();
+    
 }

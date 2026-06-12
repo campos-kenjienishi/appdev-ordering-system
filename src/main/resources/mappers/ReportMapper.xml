@@ -2,5 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.ReportMapper">
+<mapper namespace="com.pup.taguig.app.mapper.ReportMapper">
+
+    <select id="getTotalOrders" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM orders
+    </select>
+
+    <select id="getTotalRevenue" resultType="java.lang.Double">
+        SELECT COALESCE(SUM(total_price),0)
+        FROM orders
+        WHERE status != 'CANCELLED'
+    </select>
+
+    <select id="getTopSellingProducts"
+            resultType="com.pup.taguig.app.dto.TopProductResponseDTO">
+
+        SELECT
+            p.id AS productId,
+            p.name AS productName,
+            SUM(oi.quantity) AS totalSold
+        FROM order_items oi
+        INNER JOIN products p
+            ON oi.product_id = p.id
+        GROUP BY p.id, p.name
+        ORDER BY totalSold DESC
+
+    </select>
+
 </mapper>

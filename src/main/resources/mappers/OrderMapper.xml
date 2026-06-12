@@ -83,5 +83,36 @@
         SET status = 'CANCELLED'
         WHERE id = #{id}
     </update>
+    
+    <select id="getTotalOrders" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM orders
+	</select>
+
+	<select id="getTotalRevenue" resultType="java.lang.Double">
+    SELECT COALESCE(SUM(total_price),0)
+    FROM orders
+    WHERE status != 'CANCELLED'
+	</select>
+	
+	<select id="getTopSellingProducts"
+        resultType="com.pup.taguig.app.dto.TopProductResponseDTO">
+
+    SELECT
+        p.id AS productId,
+        p.name AS productName,
+        SUM(oi.quantity) AS totalSold,
+        SUM(oi.quantity * oi.price) AS totalRevenue
+
+    FROM order_items oi
+
+    INNER JOIN products p
+        ON oi.product_id = p.id
+
+    GROUP BY p.id, p.name
+
+    ORDER BY totalSold DESC
+
+</select>
 
 </mapper>
