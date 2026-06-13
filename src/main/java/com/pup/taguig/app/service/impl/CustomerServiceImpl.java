@@ -42,13 +42,9 @@ public class CustomerServiceImpl implements CustomerService{
 		Customer customer = customerMapper.getCustomerById(id);
 		
 		if (customer == null) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer with id " + id + " not found");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found");
 		}
 		
-		return this.toDto(customer);
-	}
-
-	private CustomerResponseDTO toDto(Customer customer) {
 		return new CustomerResponseDTO(
 				customer.getId(),
 				customer.getName(),
